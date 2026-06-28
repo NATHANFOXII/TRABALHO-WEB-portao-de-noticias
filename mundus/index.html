@@ -1,0 +1,709 @@
+<!--
+  ============================================================================
+  PORTAL "MUNDUS INCOGNITUS" — Notícias de Natureza, Arqueologia, História e Arte
+  ============================================================================
+
+  Este arquivo é um ÚNICO documento, mas contém TRÊS linguagens diferentes,
+  cada uma com uma função distinta:
+
+    1) HTML5       -> Define a ESTRUTURA da página (o "esqueleto"):
+                       textos, imagens, botões, formulários, seções etc.
+                       Fica espalhado por quase todo o arquivo.
+
+    2) CSS         -> Define a APARÊNCIA da página (cores, fontes, espaçamento,
+                       tamanhos, layout). Fica todo dentro da tag <style>,
+                       lá no <head>.
+
+    3) JAVASCRIPT  -> Define o COMPORTAMENTO/INTERATIVIDADE da página
+                       (a busca de notícias que filtra os cards). Fica dentro
+                       da tag <script>, no final do <body>.
+                       IMPORTANTE: JavaScript é diferente de Java! Java é a
+                       linguagem que você usa no BeeCrowd; JavaScript é a
+                       linguagem que roda dentro do navegador.
+
+  Cada bloco abaixo está demarcado com comentários grandes indicando onde
+  cada linguagem COMEÇA e TERMINA.
+  ============================================================================
+-->
+
+<!-- ############################################################ -->
+<!-- ##################  INÍCIO DO HTML5  ######################## -->
+<!-- ############################################################ -->
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mundus Incognitus — Portal de Natureza, História e Arte</title>
+
+  <!-- Favicon (ícone que aparece na aba do navegador) -->
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+
+  <!-- Bootstrap 5.3.8 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+  <!-- Google Fonts: serifada forte para títulos + sans-serif para o corpo -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@600;700;800&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- ############################################################ -->
+  <!-- ###################  INÍCIO DO CSS  ########################## -->
+  <!-- ############################################################ -->
+  <!-- Tudo dentro da tag <style> abaixo é CSS: define cores, fontes, -->
+  <!-- tamanhos, espaçamentos e o visual geral do site.               -->
+
+  <style>
+    :root {
+      --ng-amarelo: #AAC4F5;
+      --ng-dourado-tag: #FFCC00;
+      --ng-preto: #141414;
+      --ng-preto-suave: #1f1f1f;
+      --ng-cinza-texto: #4a4a4a;
+      --ng-cinza-claro: #f4f4f2;
+    }
+
+    body {
+      font-family: 'Source Sans 3', sans-serif;
+      color: var(--ng-preto);
+      background-color: #ffffff;
+    }
+
+    h1, h2, h3, h4, h5, .display-serif {
+      font-family: 'Bitter', serif;
+    }
+
+    /* ===== Faixa amarela de assinatura (a "moldura" Nat Geo) ===== */
+    .moldura-amarela {
+      background-color: var(--ng-amarelo);
+      height: 6px;
+    }
+
+    /* ===== Navbar ===== */
+    .navbar-mundoselvagem {
+      background-color: var(--ng-preto);
+    }
+    .navbar-mundoselvagem .navbar-brand {
+      font-family: 'Bitter', serif;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      color: #fff !important;
+      font-size: 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .navbar-mundoselvagem .navbar-brand .logo-marca {
+      height: 50px;
+      width: auto;
+    }
+    .navbar-mundoselvagem .navbar-brand span {
+      color: var(--ng-amarelo);
+    }
+    .navbar-mundoselvagem .nav-link {
+      color: #e8e8e8 !important;
+      font-weight: 600;
+      font-size: 0.92rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding-left: 0.9rem;
+      padding-right: 0.9rem;
+    }
+    .navbar-mundoselvagem .nav-link.active {
+      color: var(--ng-amarelo) !important;
+    }
+    .navbar-mundoselvagem .nav-link:hover {
+      color: var(--ng-amarelo) !important;
+    }
+    .btn-pesquisa-navbar {
+      border-color: #555;
+      color: #e8e8e8;
+    }
+    .btn-pesquisa-navbar:hover {
+      background-color: var(--ng-amarelo);
+      border-color: var(--ng-amarelo);
+      color: var(--ng-preto);
+    }
+
+    /* ===== Hero / Área de destaque ===== */
+    .hero-destaque {
+      position: relative;
+      min-height: 78vh;
+      display: flex;
+      align-items: flex-end;
+      background-image: linear-gradient(180deg, rgba(20,20,20,0.15) 0%, rgba(20,20,20,0.55) 60%, rgba(20,20,20,0.92) 100%),
+                         url('https://images.unsplash.com/photo-1518998053901-5348d3961a04?q=80&w=1900&auto=format&fit=crop');
+      background-size: cover;
+      background-position: center;
+      color: #fff;
+    }
+    .hero-destaque .eyebrow {
+      color: var(--ng-amarelo);
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+    }
+    .hero-destaque h1 {
+      font-weight: 800;
+      font-size: clamp(2rem, 5vw, 3.6rem);
+      line-height: 1.08;
+      max-width: 800px;
+      text-shadow: 0 2px 18px rgba(0,0,0,0.35);
+    }
+    .hero-destaque p.lead {
+      max-width: 620px;
+      font-size: 1.1rem;
+      color: #efefef;
+    }
+    .btn-leia-mais {
+      background-color: var(--ng-amarelo);
+      border-color: var(--ng-amarelo);
+      color: var(--ng-preto);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-size: 0.9rem;
+      padding: 0.7rem 1.6rem;
+    }
+    .btn-leia-mais:hover {
+      background-color: #e6b800;
+      border-color: #e6b800;
+      color: var(--ng-preto);
+    }
+
+    /* ===== Títulos de seção ===== */
+    .titulo-secao {
+      font-weight: 800;
+      border-bottom: 4px solid var(--ng-amarelo);
+      display: inline-block;
+      padding-bottom: 0.4rem;
+      margin-bottom: 1.75rem;
+    }
+
+    /* ===== Cards de notícia ===== */
+    .card-noticia {
+      border: none;
+      border-radius: 0;
+      overflow: hidden;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      height: 100%;
+    }
+    .card-noticia:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 0.75rem 1.5rem rgba(0,0,0,0.12);
+    }
+    .card-noticia .card-img-top {
+      height: 200px;
+      object-fit: cover;
+    }
+    .card-noticia .categoria-tag {
+      color: #b58a00;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.74rem;
+      letter-spacing: 1px;
+    }
+    .card-noticia .card-title {
+      font-weight: 700;
+      line-height: 1.3;
+    }
+    .card-noticia .card-text {
+      color: var(--ng-cinza-texto);
+      font-size: 0.92rem;
+    }
+    .link-leia-mais {
+      color: var(--ng-preto);
+      font-weight: 700;
+      font-size: 0.85rem;
+      text-decoration: none;
+      border-bottom: 2px solid var(--ng-amarelo);
+    }
+    .link-leia-mais:hover {
+      color: #b58a00;
+    }
+
+    /* ===== Sidebar ===== */
+    .sidebar-box {
+      background-color: var(--ng-cinza-claro);
+      border-radius: 0.5rem;
+      padding: 1.75rem;
+    }
+    .sidebar-box + .sidebar-box {
+      margin-top: 1.75rem;
+    }
+    .sidebar-box h5 {
+      font-weight: 800;
+      border-left: 4px solid var(--ng-amarelo);
+      padding-left: 0.7rem;
+      margin-bottom: 1.25rem;
+    }
+    .list-group-item {
+      background-color: transparent;
+      border-color: rgba(0,0,0,0.08);
+      padding-left: 0;
+      padding-right: 0;
+    }
+    .list-group-numero {
+      font-family: 'Bitter', serif;
+      font-weight: 800;
+      color: var(--ng-amarelo);
+      font-size: 1.4rem;
+      -webkit-text-stroke: 1px var(--ng-preto);
+      width: 2rem;
+      flex-shrink: 0;
+    }
+    .badge-categoria {
+      background-color: #e9e6df;
+      color: var(--ng-preto);
+      font-weight: 600;
+      font-size: 0.8rem;
+      padding: 0.45rem 0.8rem;
+    }
+    .badge-categoria:hover {
+      background-color: var(--ng-amarelo);
+      color: var(--ng-preto);
+    }
+
+    .btn-amarelo {
+      background-color: var(--ng-amarelo);
+      border-color: var(--ng-amarelo);
+      color: var(--ng-preto);
+      font-weight: 700;
+    }
+    .btn-amarelo:hover {
+      background-color: #e6b800;
+      border-color: #e6b800;
+      color: var(--ng-preto);
+    }
+
+    /* ===== Footer ===== */
+    footer.rodape {
+      background-color: var(--ng-preto);
+      color: #cfcfcf;
+    }
+    footer.rodape h6 {
+      color: #fff;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 0.85rem;
+      margin-bottom: 1.1rem;
+    }
+    footer.rodape a {
+      color: #b9b9b9;
+      text-decoration: none;
+    }
+    footer.rodape a:hover {
+      color: var(--ng-amarelo);
+    }
+    .icone-social {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 1px solid #444;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #cfcfcf;
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+    .icone-social:hover {
+      background-color: var(--ng-amarelo);
+      color: var(--ng-preto);
+      border-color: var(--ng-amarelo);
+    }
+
+    .foto-perfil-modal {
+      width: 90px;
+      height: 90px;
+      object-fit: cover;
+      object-position: center;
+    }
+  </style>
+  <!-- ############################################################ -->
+  <!-- ###################  FIM DO CSS  ############################# -->
+  <!-- ############################################################ -->
+
+</head>
+<body>
+  <!-- O HTML5 continua normalmente aqui no <body> -->
+
+  <div class="moldura-amarela"></div>
+
+  <!-- ===================== NAVBAR ===================== -->
+  <nav class="navbar navbar-expand-lg navbar-dark navbar-mundoselvagem sticky-top shadow">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">
+        <img src="assets/logo-mundus-incognitus.png" alt="Logo Mundus Incognitus" class="logo-marca">
+        Mundus <span>Incognitus</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarPortal" aria-controls="navbarPortal" aria-expanded="false" aria-label="Alternar navegação">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarPortal">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="index.html">Início</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="arqueologia.html">Arqueologia</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="oceanos.html">Oceanos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="vida-selvagem.html">Vida Selvagem</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="arte-historia.html">Arte &amp; História</a>
+          </li>
+        </ul>
+        <form class="d-flex me-3 mb-2 mb-lg-0" role="search" id="formBuscaNoticias">
+          <input class="form-control form-control-sm bg-dark text-light border-secondary" type="search" id="inputBuscaNoticias" placeholder="Pesquisar notícias" aria-label="Pesquisar notícias" autocomplete="off">
+        </form>
+        <button type="button" class="btn btn-outline-light btn-sm fw-bold" data-bs-toggle="modal" data-bs-target="#newsletterModal">
+          Assinar Newsletter
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===================== HERO / ÁREA DE DESTAQUE ===================== -->
+  <section class="hero-destaque">
+    <div class="container pb-5 pt-5">
+      <div class="row">
+        <div class="col-lg-9">
+          <p class="eyebrow mb-2">Arqueologia &amp; História</p>
+          <h1 class="mb-3">A máscara de jade que pode reescrever a história de uma dinastia maia</h1>
+          <p class="lead mb-4">
+            Em escavações na floresta de Belize, arqueólogos encontraram um túmulo real com um mosaico funerário
+            que está revelando novos capítulos sobre o surgimento de uma das primeiras dinastias maias.
+          </p>
+          <a href="#noticia-mascara-maia" class="btn btn-leia-mais">Ler mais →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CORPO DO PORTAL (GRID) ===================== -->
+  <main class="container my-5">
+    <div class="row g-4">
+
+      <!-- ===== COLUNA PRINCIPAL: NOTÍCIAS (8/12) ===== -->
+      <div class="col-lg-8">
+        <h2 class="titulo-secao">Últimas Notícias</h2>
+
+        <div class="row g-4" id="listaNoticias">
+
+          <!-- Card 1 -->
+          <div class="col-md-6 noticia-item" id="noticia-mascara-maia">
+            <div class="card card-noticia shadow-sm">
+              <img src="https://images.unsplash.com/photo-1518998053901-5348d3961a04?q=80&w=900&auto=format&fit=crop" class="card-img-top" alt="Ruínas de templo maia na floresta">
+              <div class="card-body">
+                <p class="categoria-tag mb-1">Arqueologia</p>
+                <h5 class="card-title">A máscara de jade que pode reescrever a história de uma dinastia maia</h5>
+                <p class="card-text">Em Caracol, na floresta de Belize, arqueólogos encontraram um túmulo real com um mosaico funerário que ajuda a entender o nascimento de uma das primeiras linhagens maias.</p>
+                <a href="#" class="link-leia-mais">Leia mais</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="col-md-6 noticia-item">
+            <div class="card card-noticia shadow-sm">
+              <img src="https://images.unsplash.com/photo-1546026423-cc4642628d2b?q=80&w=900&auto=format&fit=crop" class="card-img-top" alt="Polvo no fundo do oceano entre corais">
+              <div class="card-body">
+                <p class="categoria-tag mb-1">Vida Marinha</p>
+                <h5 class="card-title">Mestres do disfarce: o que sabemos sobre a inteligência dos polvos</h5>
+                <p class="card-text">Capazes de mudar de cor, escapar de predadores e resolver problemas complexos, os polvos continuam surpreendendo os cientistas que estudam sua cognição.</p>
+                <a href="#" class="link-leia-mais">Leia mais</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="col-md-6 noticia-item">
+            <div class="card card-noticia shadow-sm">
+              <img src="https://images.unsplash.com/photo-1577083552431-6e5fd01988ec?q=80&w=900&auto=format&fit=crop" class="card-img-top" alt="Pintura rupestre em parede de caverna">
+              <div class="card-body">
+                <p class="categoria-tag mb-1">Arte &amp; História</p>
+                <h5 class="card-title">A pintura rupestre mais antiga do mundo e o mistério de quem a fez</h5>
+                <p class="card-text">Datada em quase 68 mil anos, uma arte encontrada em caverna na Indonésia reabre o debate sobre se neandertais também foram capazes de criar expressões artísticas.</p>
+                <a href="#" class="link-leia-mais">Leia mais</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="col-md-6 noticia-item">
+            <div class="card card-noticia shadow-sm">
+              <img src="https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?q=80&w=900&auto=format&fit=crop" class="card-img-top" alt="Colmeia de abelhas com favo de mel">
+              <div class="card-body">
+                <p class="categoria-tag mb-1">Vida Selvagem</p>
+                <h5 class="card-title">Dentro da colmeia: o mundo secreto das abelhas revelado por câmeras especiais</h5>
+                <p class="card-text">Após três anos de filmagens, um documentário expõe a arquitetura e a inteligência coletiva de uma colônia que poliniza um terço do alimento do planeta.</p>
+                <a href="#" class="link-leia-mais">Leia mais</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 5 -->
+          <div class="col-md-6 noticia-item">
+            <div class="card card-noticia shadow-sm">
+              <img src="https://images.unsplash.com/photo-1551244072-5d12893278ab?q=80&w=900&auto=format&fit=crop" class="card-img-top" alt="Rio e vegetação densa em região tropical">
+              <div class="card-body">
+                <p class="categoria-tag mb-1">Vida Selvagem</p>
+                <h5 class="card-title">"O caçador de Lucy": crocodilo gigante caçava ancestrais humanos na África</h5>
+                <p class="card-text">Uma espécie de crocodilo recém-identificada percorria os rios da Etiópia há mais de 3 milhões de anos, na mesma época em que vivia a espécie de hominídeo conhecida como Lucy.</p>
+                <a href="#" class="link-leia-mais">Leia mais</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 6 -->
+          <div class="col-md-6 noticia-item">
+            <div class="card card-noticia shadow-sm">
+              <img src="https://images.unsplash.com/photo-1547333101-4a830ceb523e?q=80&w=900&auto=format&fit=crop" class="card-img-top" alt="Estátuas e artefatos egípcios antigos em museu">
+              <div class="card-body">
+                <p class="categoria-tag mb-1">Arte &amp; História</p>
+                <h5 class="card-title">DNA de 4.500 anos permite reconstruir o rosto de um antigo egípcio</h5>
+                <p class="card-text">Pesquisadores sequenciaram o genoma de um homem que viveu na época das primeiras pirâmides, possibilitando uma reconstrução facial baseada em escaneamento 3D do crânio.</p>
+                <a href="#" class="link-leia-mais">Leia mais</a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Mensagem exibida quando a busca não encontra nenhuma notícia -->
+        <div id="semResultadoBusca" class="text-center text-muted py-5 d-none">
+          <p class="fs-5 mb-1">Nenhuma notícia encontrada 🔍</p>
+          <p class="small mb-0">Tente pesquisar por outro termo, como "polvo", "maia" ou "egípcio".</p>
+        </div>
+      </div>
+
+      <!-- ===== SIDEBAR (4/12) ===== -->
+      <div class="col-lg-4">
+
+        <!-- Notícias mais lidas -->
+        <div class="sidebar-box">
+          <h5>Notícias Mais Lidas</h5>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item d-flex align-items-start gap-3">
+              <span class="list-group-numero">1</span>
+              <a href="#" class="text-decoration-none text-dark fw-semibold">Mestres do disfarce: o que sabemos sobre a inteligência dos polvos</a>
+            </li>
+            <li class="list-group-item d-flex align-items-start gap-3">
+              <span class="list-group-numero">2</span>
+              <a href="#" class="text-decoration-none text-dark fw-semibold">Dentro da colmeia: o mundo secreto das abelhas</a>
+            </li>
+            <li class="list-group-item d-flex align-items-start gap-3">
+              <span class="list-group-numero">3</span>
+              <a href="#" class="text-decoration-none text-dark fw-semibold">A máscara de jade que pode reescrever a história maia</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Formulário de Newsletter (padrão Bootstrap, na própria sidebar) -->
+        <div class="sidebar-box">
+          <h5>Assine a Newsletter</h5>
+          <p class="text-muted small">Receba as melhores histórias de natureza, história e arte direto no seu e-mail, uma vez por semana.</p>
+          <form novalidate>
+            <div class="mb-3">
+              <label for="emailSidebar" class="form-label">E-mail</label>
+              <input type="email" class="form-control" id="emailSidebar" placeholder="nome@exemplo.com" required>
+            </div>
+            <button type="submit" class="btn btn-amarelo w-100">Enviar</button>
+          </form>
+        </div>
+
+        <!-- Categorias -->
+        <div class="sidebar-box">
+          <h5>Categorias</h5>
+          <div class="d-flex flex-wrap gap-2">
+            <a href="vida-selvagem.html" class="badge-categoria rounded-pill text-decoration-none px-3 py-2">Vida Selvagem</a>
+            <a href="oceanos.html" class="badge-categoria rounded-pill text-decoration-none px-3 py-2">Oceanos</a>
+            <a href="arqueologia.html" class="badge-categoria rounded-pill text-decoration-none px-3 py-2">Arqueologia</a>
+            <a href="arte-historia.html" class="badge-categoria rounded-pill text-decoration-none px-3 py-2">Arte &amp; História</a>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ===================== MODAL: ASSINAR NEWSLETTER / LOGIN ===================== -->
+  <div class="modal fade" id="newsletterModal" tabindex="-1" aria-labelledby="newsletterModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+
+        <div class="modal-header" style="background-color: var(--ng-amarelo);">
+          <h5 class="modal-title fw-bold" id="newsletterModalLabel">Assine a Newsletter</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+
+        <div class="modal-body">
+          <div class="text-center mb-3">
+            <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?q=80&w=300&auto=format&fit=crop"
+                 alt="Paisagem natural"
+                 class="rounded-circle mb-2 border border-3 foto-perfil-modal" style="border-color: var(--ng-amarelo) !important;">
+            <p class="text-muted small mb-0">Histórias de ciência e natureza, direto na sua caixa de entrada.</p>
+          </div>
+
+          <form novalidate>
+            <div class="mb-3">
+              <label for="nomeModal" class="form-label">Nome</label>
+              <input type="text" class="form-control" id="nomeModal" placeholder="Digite seu nome" required>
+            </div>
+            <div class="mb-3">
+              <label for="emailModal" class="form-label">E-mail</label>
+              <input type="email" class="form-control" id="emailModal" placeholder="nome@exemplo.com" required>
+            </div>
+          </form>
+        </div>
+
+        <div class="modal-footer justify-content-center">
+          <button type="button" class="btn btn-amarelo fw-bold px-4" data-bs-dismiss="modal">Confirmar Inscrição</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== RODAPÉ ===================== -->
+  <footer class="rodape pt-5 pb-4 mt-5">
+    <div class="container">
+      <div class="row g-4">
+
+        <div class="col-lg-4">
+          <h5 class="text-white fw-bold mb-3 d-flex align-items-center gap-2">
+            <img src="assets/logo-mundus-incognitus.png" alt="Logo Mundus Incognitus" style="height: 36px; width: auto;">
+            Mundus <span style="color: var(--ng-amarelo);">Incognitus</span>
+          </h5>
+          <p class="small">Um portal dedicado a contar as melhores histórias de ciência, natureza e exploração ao redor do mundo.</p>
+          <div class="d-flex gap-2 mt-3">
+            <a href="#" class="icone-social" aria-label="Instagram">IG</a>
+            <a href="#" class="icone-social" aria-label="Facebook">FB</a>
+            <a href="#" class="icone-social" aria-label="YouTube">YT</a>
+          </div>
+        </div>
+
+        <div class="col-lg-2 col-md-4">
+          <h6>Sobre</h6>
+          <ul class="list-unstyled small">
+            <li class="mb-2"><a href="#">Quem Somos</a></li>
+            <li class="mb-2"><a href="#">Nossa Equipe</a></li>
+            <li class="mb-2"><a href="#">Trabalhe Conosco</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-2 col-md-4">
+          <h6>Seções</h6>
+          <ul class="list-unstyled small">
+            <li class="mb-2"><a href="vida-selvagem.html">Vida Selvagem</a></li>
+            <li class="mb-2"><a href="oceanos.html">Oceanos</a></li>
+            <li class="mb-2"><a href="arqueologia.html">Arqueologia</a></li>
+            <li class="mb-2"><a href="arte-historia.html">Arte &amp; História</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-2 col-md-4">
+          <h6>Legal</h6>
+          <ul class="list-unstyled small">
+            <li class="mb-2"><a href="#">Contato</a></li>
+            <li class="mb-2"><a href="#">Política de Privacidade</a></li>
+            <li class="mb-2"><a href="#">Termos de Uso</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-2 col-md-12">
+          <h6>Newsletter</h6>
+          <p class="small">Receba nossas histórias por e-mail.</p>
+          <button type="button" class="btn btn-amarelo btn-sm w-100" data-bs-toggle="modal" data-bs-target="#newsletterModal">Assinar</button>
+        </div>
+
+      </div>
+
+      <hr class="border-secondary my-4">
+
+      <p class="text-center small mb-0">&copy; 2026 Mundus Incognitus. Todos os direitos reservados. Conteúdo educacional inspirado em pautas de ciência e natureza.</p>
+    </div>
+  </footer>
+
+  <!-- Bootstrap Bundle (JS da própria biblioteca Bootstrap, controla modal, navbar etc.) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+  <!-- ############################################################ -->
+  <!-- #################  INÍCIO DO JAVASCRIPT  ###################### -->
+  <!-- ############################################################ -->
+  <!-- Tudo dentro da tag <script> abaixo é JAVASCRIPT (não é Java!). -->
+  <!-- É o código que faz a barra de busca da navbar filtrar          -->
+  <!-- as notícias da página em tempo real, conforme a pessoa digita. -->
+
+  <script>
+    // Espera o HTML inteiro carregar antes de "ligar" a busca
+    document.addEventListener('DOMContentLoaded', function () {
+
+      const inputBusca = document.getElementById('inputBuscaNoticias');
+      const formBusca = document.getElementById('formBuscaNoticias');
+      const noticias = document.querySelectorAll('.noticia-item');
+      const mensagemSemResultado = document.getElementById('semResultadoBusca');
+
+      // Impede que o formulário recarregue a página ao apertar Enter
+      formBusca.addEventListener('submit', function (evento) {
+        evento.preventDefault();
+      });
+
+      // Filtra as notícias a cada letra digitada
+      inputBusca.addEventListener('input', function () {
+        filtrarNoticias(inputBusca.value);
+      });
+
+      function filtrarNoticias(termoDigitado) {
+        // normaliza o termo: minúsculo e sem espaços extras nas pontas
+        const termo = termoDigitado.trim().toLowerCase();
+        let algumaNoticiaVisivel = false;
+
+        noticias.forEach(function (noticia) {
+          const titulo = noticia.querySelector('.card-title')?.textContent.toLowerCase() || '';
+          const resumo = noticia.querySelector('.card-text')?.textContent.toLowerCase() || '';
+          const categoria = noticia.querySelector('.categoria-tag')?.textContent.toLowerCase() || '';
+
+          const combina = termo === '' ||
+                           titulo.includes(termo) ||
+                           resumo.includes(termo) ||
+                           categoria.includes(termo);
+
+          if (combina) {
+            noticia.classList.remove('d-none');
+            algumaNoticiaVisivel = true;
+          } else {
+            noticia.classList.add('d-none');
+          }
+        });
+
+        // Mostra a mensagem de "nenhum resultado" apenas se nada combinou
+        mensagemSemResultado.classList.toggle('d-none', algumaNoticiaVisivel);
+      }
+    });
+  </script>
+
+  <!-- ############################################################ -->
+  <!-- ##################  FIM DO JAVASCRIPT  ######################## -->
+  <!-- ############################################################ -->
+
+</body>
+</html>
+
+<!-- ############################################################ -->
+<!-- ###################  FIM DO HTML5  ########################### -->
+<!-- ############################################################ -->
+
+<!-- adicionar um comentário depois do fechamento do body eu utilizei copy paste para ia. -->
+
+
+<!-- adicionar um comentário depois do fechamento do body eu utilizei copy paste para ia. -->
